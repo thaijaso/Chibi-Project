@@ -36,7 +36,8 @@ public class PlayerStateMachine
         }
         statesToAdd.Clear();
 
-        foreach(var state in statesToRemove)
+        // Remove queued states
+        foreach (var state in statesToRemove)
         {
             Debug.Log($"Removing state: {state.GetType().Name}");
             activeStates.Remove(state);
