@@ -31,6 +31,13 @@ public class IdleState : PlayerState
         {
             stateMachine.RemoveState(this);
             stateMachine.AddState(player.moveState);
-        } 
+        }
+        
+        if (player.PlayerInput.IsJumping && player.PlayerMovement.IsGrounded)
+        {
+            Debug.Log("Jumping from Idle State");
+            stateMachine.RemoveState(this);
+            stateMachine.AddState(player.jumpState);
+        }
     }
 }

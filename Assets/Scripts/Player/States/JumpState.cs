@@ -27,6 +27,12 @@ public class JumpState : PlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        if (player.PlayerMovement.IsGrounded)
+        {
+            stateMachine.RemoveState(this);
+            stateMachine.AddState(player.idleState);
+        }
     }
 
     public override void PhysicsUpdate()

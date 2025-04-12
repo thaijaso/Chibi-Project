@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public Animator Animator { get; private set; }
 
     private PlayerStateMachine stateMachine;
+    
     internal PlayerState moveState;
     internal PlayerState idleState;
     internal PlayerState jumpState;
