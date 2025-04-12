@@ -20,6 +20,7 @@ public class PlayerState
 
     public virtual void Enter()
     {
+        Debug.Log("Entering state: " + animationName);
         isExitingState = false;
         isAnimationFinished = false;
         animationController.SetBool(animationName, true);
@@ -27,6 +28,7 @@ public class PlayerState
 
     public virtual void Exit()
     {
+        Debug.Log("Exiting state: " + animationName);
         isExitingState = true;
         animationController.SetBool(animationName, false);
         if (!isAnimationFinished) isAnimationFinished = true;

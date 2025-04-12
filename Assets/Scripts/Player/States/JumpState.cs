@@ -14,21 +14,19 @@ public class JumpState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("Entering Jump State");
         player.PlayerMovement.Jump();
     }
 
     public override void Exit()
     {
         base.Exit();
-        Debug.Log("Exiting Jump State");
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        if (player.PlayerMovement.IsGrounded)
+        if (player.PlayerMovement.IsGrounded && player.PlayerMovement.PlayerRigidbody.linearVelocity.y <= 0)
         {
             stateMachine.RemoveState(this);
             stateMachine.AddState(player.idleState);

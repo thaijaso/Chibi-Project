@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     internal PlayerState moveState;
     internal PlayerState idleState;
     internal PlayerState jumpState;
+    internal PlayerState aimState;
 
     // Use this for initialization
     void Start()
@@ -32,6 +33,7 @@ public class Player : MonoBehaviour
         idleState = new IdleState(this, stateMachine, Animator, "Idle");
         moveState = new MoveState(this, stateMachine, Animator, "Move");
         jumpState = new JumpState(this, stateMachine, Animator, "Jump");
+        aimState = new AimState(this, stateMachine, Animator, "Aim");
 
         // Set initial state
         stateMachine.AddState(idleState);

@@ -14,13 +14,11 @@ public class IdleState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("Entering Idle State");
     }
 
     public override void Exit()
     {
         base.Exit();
-        Debug.Log("Exiting Idle State");
     }
 
     public override void LogicUpdate()
@@ -35,9 +33,14 @@ public class IdleState : PlayerState
         
         if (player.PlayerInput.IsJumping && player.PlayerMovement.IsGrounded)
         {
-            Debug.Log("Jumping from Idle State");
             stateMachine.RemoveState(this);
             stateMachine.AddState(player.jumpState);
+        }
+
+        if (player.PlayerInput.IsAiming)
+        {
+            stateMachine.RemoveState(this);
+            stateMachine.AddState(player.aimState);
         }
     }
 }
