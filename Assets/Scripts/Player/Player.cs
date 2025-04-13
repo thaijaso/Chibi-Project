@@ -6,12 +6,12 @@ public class Player : MonoBehaviour
 {
     public PlayerInput PlayerInput { get; private set; }
     public PlayerMovement PlayerMovement { get; private set; }
-    public Animator Animator { get; private set; }
+    public AnimationManager AnimationManager { get; private set; }
 
     private PlayerStateMachine stateMachine;
     
-    internal PlayerState moveState;
     internal PlayerState idleState;
+    internal PlayerState runState;
     internal PlayerState jumpState;
     internal PlayerState aimState;
 
@@ -24,19 +24,20 @@ public class Player : MonoBehaviour
         PlayerMovement = GetComponent<PlayerMovement>();
         if (PlayerMovement == null) Debug.LogError("PlayerMovement component is missing!");
 
-        Animator = GetComponent<Animator>();
-        if (Animator == null) Debug.LogError("Animator component is missing!");
-
+        Animator animator = GetComponent<Animator>();
+        if (animator == null) Debug.LogError("Animator component is missing!");
+        
+        AnimationManager = new AnimationManager(animator);
         stateMachine = new PlayerStateMachine();
 
         // Initialize states
-        idleState = new IdleState(this, stateMachine, Animator, "Idle");
-        moveState = new MoveState(this, stateMachine, Animator, "Move");
-        jumpState = new JumpState(this, stateMachine, Animator, "Jump");
-        aimState = new AimState(this, stateMachine, Animator, "Aim");
+        idleState = new IdleState(this, stateMachine, AnimationManager, "Idle");
+        runState = new RunState(this, stateMachine, AnimationManager, "Run");
+        jumpState = new JumpState(this, stateMachine, AnimationManager, "Jump");
+        aimState = new AimState(this, stateMachine, AnimationManager, "Aim");
 
         // Set initial state
-        stateMachine.AddState(idleState);
+        stateMachine.SetState(idleState);
     }
 
 	// Update is called once per frame

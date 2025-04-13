@@ -5,30 +5,27 @@ public class AimState : PlayerState
     public AimState(
         Player player,
         PlayerStateMachine stateMachine,
-        Animator animationController,
+        AnimationManager animationManager,
         string animationName
-    ) : base(player, stateMachine, animationController, animationName)
-    {
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
+    ) : base(
+        player, 
+        stateMachine, 
+        animationManager, 
+        animationName
+    ) {}
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        if (!player.PlayerInput.IsAiming)
+        if (!player.PlayerInput.IsAiming && !player.PlayerInput.IsMoving)
         {
-            stateMachine.RemoveState(this);
-            stateMachine.AddState(player.idleState);
+            stateMachine.SetState(player.idleState);
+        }
+
+        if (!player.PlayerInput.IsAiming && player.PlayerInput.IsMoving)
+        {
+            stateMachine.SetState(player.runState);
         }
     }
 }

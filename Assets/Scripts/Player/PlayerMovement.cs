@@ -35,6 +35,10 @@ private void Start()
     {
         PlayerRigidbody.linearVelocity = Vector3.up * JumpStrength;
     }
+    public bool IsAirborne()
+    {
+        return PlayerRigidbody.linearVelocity.y > 0;
+    }
 
     void OnCollisionEnter(Collision collision)
     {
@@ -53,4 +57,5 @@ private void Start()
             IsGrounded = false;
         }
     }
+
 }

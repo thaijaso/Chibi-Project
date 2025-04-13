@@ -1,11 +1,14 @@
 {
   "dependencies": {
-    "com.handzlikchris.fastscriptreload": {
-      "version": "https://github.com/handzlikchris/FastScriptReload.git?path=Assets",
+    "com.singularitygroup.hotreload": {
+      "version": "git+https://gitlab.hotreload.net/root/hot-reload-releases.git#1.13.4",
       "depth": 0,
       "source": "git",
-      "dependencies": {},
-      "hash": "2e1e1a5d2996410a92c2dd1809edbba47c7347ec"
+      "dependencies": {
+        "com.unity.ugui": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0"
+      },
+      "hash": "cdce7d41d2dfa616314fa755706e71ac92a60dad"
     },
     "com.unity.ai.navigation": {
       "version": "2.0.6",

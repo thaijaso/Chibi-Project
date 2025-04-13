@@ -1,15 +1,19 @@
+using System;
 using UnityEngine;
 
-public class JumpState : PlayerState
+public class JumpState : MoveState
 {
     public JumpState(
         Player player, 
         PlayerStateMachine stateMachine, 
-        Animator animationController, 
+        AnimationManager animationManager, 
         string animationName
-    ) : base(player, stateMachine, animationController, animationName)
-    {
-    }
+    ) : base(
+        player, 
+        stateMachine,
+        animationManager, 
+        animationName
+    ) {}
 
     public override void Enter()
     {
@@ -17,24 +21,18 @@ public class JumpState : PlayerState
         player.PlayerMovement.Jump();
     }
 
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        if (player.PlayerMovement.IsGrounded && player.PlayerMovement.PlayerRigidbody.linearVelocity.y <= 0)
+        if (player.PlayerMovement.IsGrounded && !player.PlayerMovement.IsAirborne())
         {
-            stateMachine.RemoveState(this);
-            stateMachine.AddState(player.idleState);
+             stateMachine.SetState(player.idleState);
         }
     }
 
     public override void PhysicsUpdate()
     {
-        base.PhysicsUpdate();
+        base.PhysicsUpdate(); 
     }
 }

@@ -595,7 +595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerRigidbody: {fileID: 691816822}
-  Speed: 1
+  Speed: 2
   JumpStrength: 4
 --- !u!1 &1293043680
 GameObject:

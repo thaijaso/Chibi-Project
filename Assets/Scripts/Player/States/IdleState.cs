@@ -5,21 +5,14 @@ public class IdleState : PlayerState
     public IdleState(
         Player player, 
         PlayerStateMachine stateMachine, 
-        Animator animationController, 
+        AnimationManager animationManager, 
         string animationName
-        ) : base(player, stateMachine, animationController, animationName)
-    {
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
+    ) : base(
+        player, 
+        stateMachine, 
+        animationManager, 
+        animationName
+    ) {}
 
     public override void LogicUpdate()
     {
@@ -27,20 +20,17 @@ public class IdleState : PlayerState
 
         if (player.PlayerInput.IsMoving)
         {
-            stateMachine.RemoveState(this);
-            stateMachine.AddState(player.moveState);
+            stateMachine.SetState(player.runState);
         }
         
         if (player.PlayerInput.IsJumping && player.PlayerMovement.IsGrounded)
         {
-            stateMachine.RemoveState(this);
-            stateMachine.AddState(player.jumpState);
+            stateMachine.SetState(player.jumpState);
         }
 
         if (player.PlayerInput.IsAiming)
         {
-            stateMachine.RemoveState(this);
-            stateMachine.AddState(player.aimState);
+            stateMachine.SetState(player.aimState);
         }
     }
 }

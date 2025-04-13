@@ -3,42 +3,38 @@ using UnityEngine;
 public class MoveState : PlayerState
 {
     public MoveState(
-        Player player, 
-        PlayerStateMachine stateMachine, 
-        Animator animationController, 
+        Player player,
+        PlayerStateMachine stateMachine,
+        AnimationManager animationManager, 
         string animationName
-        ) : base(player, stateMachine, animationController, animationName) 
-    { 
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-        Debug.Log("Entering Move State");
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-        Debug.Log("Exiting Move State");
-    }
+    ) : base(
+        player,
+        stateMachine,
+        animationManager,
+        animationName
+    ) {}
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        // Transition to Idle State if no input is detected
         if (!player.PlayerInput.IsMoving)
         {
-            stateMachine.RemoveState(this);
-            stateMachine.AddState(player.idleState);
+            // Transition to Idle State if no input is detected
+            stateMachine.SetState(player.idleState);
+        }
+
+        if (player.PlayerInput.IsJumping && player.PlayerMovement.IsGrounded)
+        {
+            stateMachine.SetState(player.jumpState);
         }
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        // Handle player movement
+
+        // Shared movement logic
         Vector3 direction = player.PlayerInput.GetMovementDirection();
         player.PlayerMovement.Move(direction);
     }

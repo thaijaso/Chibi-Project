@@ -3,64 +3,30 @@ using UnityEngine;
 
 public class PlayerStateMachine
 {
-    private readonly List<PlayerState> activeStates = new();
-    private readonly List<PlayerState> statesToAdd = new();
-    private readonly List<PlayerState> statesToRemove = new();
+    private PlayerState currentState;
 
-    public void AddState(PlayerState state)
+    public void SetState(PlayerState newState)
     {
-        Debug.Log($"Queing state to add: {state.GetType().Name}");
-        if (!activeStates.Contains(state) && !statesToAdd.Contains(state))
+        if (currentState == newState)
         {
-            statesToAdd.Add(state);
+            Debug.Log($"State {newState.GetType().Name} is already active.");
+            return;
         }
-    }
 
-    public void RemoveState(PlayerState state)
-    {
-        Debug.Log($"Queuing state to remove: {state.GetType().Name}");
-        if (activeStates.Contains(state) && !statesToRemove.Contains(state))
-        {
-            statesToRemove.Add(state);
-        }
-    }
+        currentState?.Exit();
+        currentState = newState;
+        currentState.Enter();
 
-    public void ApplyStateChanges()
-    {
-        // Add queued states
-        foreach (var state in statesToAdd)
-        {
-            Debug.Log($"Adding state: {state.GetType().Name}");
-            activeStates.Add(state);
-            state.Enter();
-        }
-        statesToAdd.Clear();
-
-        // Remove queued states
-        foreach (var state in statesToRemove)
-        {
-            Debug.Log($"Removing state: {state.GetType().Name}");
-            activeStates.Remove(state);
-            state.Exit();
-        }
-        statesToRemove.Clear();
+        Debug.Log($"Transitioned to state: {newState.GetType().Name}");
     }
 
     public void LogicUpdate()
     {
-        foreach (var state in activeStates)
-        {
-            state.LogicUpdate();
-        }
-        ApplyStateChanges();
+        currentState?.LogicUpdate();
     }
 
     public void PhysicsUpdate()
     {
-        foreach (var state in activeStates)
-        {
-            state.PhysicsUpdate();
-        }
-        ApplyStateChanges();
+        currentState?.PhysicsUpdate();
     }
 }

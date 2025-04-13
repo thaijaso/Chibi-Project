@@ -16,7 +16,7 @@ public class PlayerInput : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         IsMoving = Mathf.Abs(horizontal) > MovementThreshold || Mathf.Abs(vertical) > MovementThreshold;
-        
+
         IsJumping = Input.GetButtonDown("Jump");
         IsAiming = Input.GetButton("Fire2");
     }

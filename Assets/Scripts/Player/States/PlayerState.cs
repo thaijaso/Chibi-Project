@@ -4,42 +4,39 @@ public class PlayerState
 {
     protected Player player;
     protected PlayerStateMachine stateMachine;
-    protected Animator animationController;
+    protected AnimationManager animationManager;
     protected string animationName;
 
-    protected bool isExitingState;
-    protected bool isAnimationFinished;
-
-    public PlayerState(Player player, PlayerStateMachine stateMachine, Animator animationController, string animationName)
+    public PlayerState(
+        Player player,
+        PlayerStateMachine stateMachine,
+        AnimationManager animationManager,
+        string animationName)
     {
         this.player = player;
         this.stateMachine = stateMachine;
-        this.animationController = animationController;
+        this.animationManager = animationManager;
         this.animationName = animationName;
     }
 
     public virtual void Enter()
     {
-        Debug.Log("Entering state: " + animationName);
-        isExitingState = false;
-        isAnimationFinished = false;
-        animationController.SetBool(animationName, true);
+        animationManager.PlayAnimation(animationName);
     }
 
     public virtual void Exit()
     {
-        Debug.Log("Exiting state: " + animationName);
-        isExitingState = true;
-        animationController.SetBool(animationName, false);
-        if (!isAnimationFinished) isAnimationFinished = true;
+        animationManager.StopAnimation();
     }
 
     public virtual void LogicUpdate()
     {
+        // Logic to be implemented in derived classes
     }
 
-    public virtual void PhysicsUpdate() 
+    public virtual void PhysicsUpdate()
     {
+        // Physics logic to be implemented in derived classes
     }
 }
 
