@@ -24,7 +24,7 @@ public class MoveState : PlayerState
             stateMachine.SetState(player.idleState);
         }
 
-        if (player.PlayerInput.IsJumping && player.PlayerMovement.IsGrounded)
+        if (ShouldJump())
         {
             stateMachine.SetState(player.jumpState);
         }
@@ -37,5 +37,9 @@ public class MoveState : PlayerState
         // Shared movement logic
         Vector3 direction = player.PlayerInput.GetMovementDirection();
         player.PlayerMovement.Move(direction);
+    }
+    public bool ShouldJump()
+    {
+        return player.PlayerInput.IsJumping && player.PlayerMovement.IsGrounded;
     }
 }

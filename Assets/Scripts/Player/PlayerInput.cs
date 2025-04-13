@@ -8,6 +8,7 @@ public class PlayerInput : MonoBehaviour
     public bool IsMoving { get; internal set; }
     public bool IsJumping { get; internal set; }
     public bool IsAiming { get; internal set; }
+    public bool IsShooting { get; internal set; }
 
     // Update is called once per frame
     void Update()
@@ -19,6 +20,7 @@ public class PlayerInput : MonoBehaviour
 
         IsJumping = Input.GetButtonDown("Jump");
         IsAiming = Input.GetButton("Fire2");
+        IsShooting = Input.GetButton("Fire1") && Input.GetButton("Fire2");
     }
 
     public Vector3 GetMovementDirection()

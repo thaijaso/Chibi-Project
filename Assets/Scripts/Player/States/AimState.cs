@@ -27,5 +27,10 @@ public class AimState : PlayerState
         {
             stateMachine.SetState(player.runState);
         }
+
+        if (player.PlayerInput.IsShooting)
+        {
+            stateMachine.SetState(player.shootState);
+        }
     }
 }
