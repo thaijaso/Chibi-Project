@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AimState : PlayerState
+public class AimState : StrafeState
 {
     public AimState(
         Player player,
@@ -31,11 +31,6 @@ public class AimState : PlayerState
         if (player.PlayerInput.IsShooting)
         {
             stateMachine.SetState(player.shootHandgun);
-        }
-
-        if (player.PlayerInput.IsMoving && player.PlayerInput.IsAiming)
-        {
-            stateMachine.SetState(player.moveAim);
         }
     }
 }

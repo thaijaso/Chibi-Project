@@ -10,13 +10,13 @@ public class PlayerMovement : MonoBehaviour
 
 private void Start()
     {
-        PlayerRigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         IsGrounded = true;
     }
 
     // Moves the player in the specified direction
     public void Move(Vector3 direction)
     {
+
         if (direction != Vector3.zero)
         {
             // Normalize the direction vector to ensure consistent speed
@@ -30,6 +30,15 @@ private void Start()
         }
     }
 
+    public void Strafe(Vector3 direction)
+    {
+        if (direction != Vector3.zero) 
+        {
+            direction.Normalize();
+            PlayerRigidbody.MovePosition(PlayerRigidbody.position + Speed * Time.fixedDeltaTime * direction);
+        }
+    }
+    
     // Makes the player jump
     public void Jump()
     {
