@@ -14,6 +14,17 @@ public class RunState : MoveState
             animationName
     ) {}
 
+    public override void LogicUpdate()
+    {
+        base.LogicUpdate();
+
+        if (player.PlayerInput.IsAiming)
+        {
+            // Transition to Aim State if aiming
+            stateMachine.SetState(player.aim);
+        }
+    }
+
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();

@@ -37,7 +37,8 @@ private void Start()
     }
     public bool IsAirborne()
     {
-        return PlayerRigidbody.linearVelocity.y > 0;
+        // Check if the player is airborne by checking if the vertical velocity is greater than 0
+        return !IsGrounded || Mathf.Abs(PlayerRigidbody.linearVelocity.y) > 0.01f;
     }
 
     void OnCollisionEnter(Collision collision)

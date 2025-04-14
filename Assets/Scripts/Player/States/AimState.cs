@@ -20,17 +20,22 @@ public class AimState : PlayerState
 
         if (!player.PlayerInput.IsAiming && !player.PlayerInput.IsMoving)
         {
-            stateMachine.SetState(player.idleState);
+            stateMachine.SetState(player.idle);
         }
 
         if (!player.PlayerInput.IsAiming && player.PlayerInput.IsMoving)
         {
-            stateMachine.SetState(player.runState);
+            stateMachine.SetState(player.run);
         }
 
         if (player.PlayerInput.IsShooting)
         {
-            stateMachine.SetState(player.shootState);
+            stateMachine.SetState(player.shootHandgun);
+        }
+
+        if (player.PlayerInput.IsMoving && player.PlayerInput.IsAiming)
+        {
+            stateMachine.SetState(player.moveAim);
         }
     }
 }

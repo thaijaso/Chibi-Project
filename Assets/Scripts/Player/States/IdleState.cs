@@ -20,17 +20,17 @@ public class IdleState : PlayerState
 
         if (player.PlayerInput.IsMoving)
         {
-            stateMachine.SetState(player.runState);
+            stateMachine.SetState(player.run);
         }
         
         if (player.PlayerInput.IsJumping && player.PlayerMovement.IsGrounded)
         {
-            stateMachine.SetState(player.jumpState);
+            stateMachine.SetState(player.jump);
         }
 
         if (player.PlayerInput.IsAiming)
         {
-            stateMachine.SetState(player.aimState);
+            stateMachine.SetState(player.aim);
         }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -10,11 +8,12 @@ public class Player : MonoBehaviour
 
     private PlayerStateMachine stateMachine;
     
-    internal PlayerState idleState;
-    internal PlayerState runState;
-    internal PlayerState jumpState;
-    internal PlayerState aimState;
-    internal PlayerState shootState;
+    internal PlayerState idle;
+    internal PlayerState run;
+    internal PlayerState jump;
+    internal PlayerState aim;
+    internal PlayerState shootHandgun;
+    internal PlayerState moveAim;
 
     // Use this for initialization
     void Start()
@@ -32,14 +31,16 @@ public class Player : MonoBehaviour
         stateMachine = new PlayerStateMachine();
 
         // Initialize states
-        idleState = new IdleState(this, stateMachine, AnimationManager, "Idle");
-        runState = new RunState(this, stateMachine, AnimationManager, "Run");
-        jumpState = new JumpState(this, stateMachine, AnimationManager, "Jump");
-        aimState = new AimState(this, stateMachine, AnimationManager, "Aim");
-        shootState = new ShootState(this, stateMachine, AnimationManager, "Shoot");
+        idle = new IdleState(this, stateMachine, AnimationManager, "Idle");
+        run = new RunState(this, stateMachine, AnimationManager, "Run");
+        jump = new JumpState(this, stateMachine, AnimationManager, "Jump");
+        aim = new AimState(this, stateMachine, AnimationManager, "Aim");
+        shootHandgun = new ShootHandgunState(this, stateMachine, AnimationManager, "Shoot Revolver");
+        moveAim = new MoveAimState(this, stateMachine, AnimationManager, "Walk Aim");
+
 
         // Set initial state
-        stateMachine.SetState(idleState);
+        stateMachine.SetState(idle);
     }
 
 	// Update is called once per frame

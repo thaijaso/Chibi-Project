@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class ShootState : PlayerState
+public class ShootHandgunState : PlayerState
 {
-    public ShootState(
+    public ShootHandgunState(
         Player player, 
         PlayerStateMachine stateMachine, 
         AnimationManager animationManager, 
@@ -18,9 +18,19 @@ public class ShootState : PlayerState
     {
         base.LogicUpdate();
 
+        if (!animationManager.IsAnimationPlaying(animationName) && !player.PlayerInput.IsMoving)
+        {
+            stateMachine.SetState(player.idle);
+        }
+
         if (!animationManager.IsAnimationPlaying(animationName) && player.PlayerInput.IsAiming)
         {
-            stateMachine.SetState(player.aimState);
+            stateMachine.SetState(player.aim);
+        }
+
+        if (!animationManager.IsAnimationPlaying(animationName) && player.PlayerInput.IsMoving)
+        {
+            stateMachine.SetState(player.run);
         }
     }
 

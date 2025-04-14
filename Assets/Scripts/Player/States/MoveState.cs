@@ -18,15 +18,15 @@ public class MoveState : PlayerState
     {
         base.LogicUpdate();
 
-        if (!player.PlayerInput.IsMoving)
+        if (!player.PlayerInput.IsMoving && !player.PlayerInput.IsAiming && !player.PlayerMovement.IsAirborne())
         {
             // Transition to Idle State if no input is detected
-            stateMachine.SetState(player.idleState);
+            stateMachine.SetState(player.idle);
         }
 
-        if (ShouldJump())
+        if (CanJump())
         {
-            stateMachine.SetState(player.jumpState);
+            stateMachine.SetState(player.jump);
         }
     }
 
@@ -38,7 +38,7 @@ public class MoveState : PlayerState
         Vector3 direction = player.PlayerInput.GetMovementDirection();
         player.PlayerMovement.Move(direction);
     }
-    public bool ShouldJump()
+    public bool CanJump()
     {
         return player.PlayerInput.IsJumping && player.PlayerMovement.IsGrounded;
     }

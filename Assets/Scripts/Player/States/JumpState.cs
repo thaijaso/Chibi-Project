@@ -27,7 +27,8 @@ public class JumpState : MoveState
 
         if (player.PlayerMovement.IsGrounded && !player.PlayerMovement.IsAirborne())
         {
-             stateMachine.SetState(player.idleState);
+            Debug.Log("Player is grounded and not airborne.");
+            stateMachine.SetState(player.idle);
         }
     }
 
